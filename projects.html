@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Our Landmark Projects - Steddy Trading Company Limited</title> 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&amp;family=Open+Sans:wght@400;600&amp;display=swap" rel="stylesheet"> 
+  <style>
+        :root {
+            --primary-color: #007bff; /* A vibrant blue */
+            --secondary-color: #6c757d; /* Darker grey for details */
+            --accent-color: #28a745; /* Green for highlights/success */
+            --background-light: #f8f9fa; /* Light background */
+            --background-dark: #e9ecef; /* Slightly darker background for sections */
+            --text-dark: #343a40; /* Main text color */
+            --text-light: #f8f9fa; /* Text on dark backgrounds */
+            --border-color: #dee2e6;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .header-hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+            color: var(--text-light);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 50% 20%;
+            border-bottom-right-radius: 50% 20%;
+            animation: fadeInHeader 1s ease-out;
+        }
+
+        .header-hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: rotate(45deg);
+            animation: floatEffect 10s infinite ease-in-out alternate;
+        }
+
+        .header-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 250px;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transform: rotate(-30deg);
+            animation: floatEffect 12s infinite ease-in-out reverse;
+        }
+
+        .header-hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px var(--shadow-medium);
+        }
+
+        .header-hero p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: -60px auto 40px auto; /* Pull it up a bit into the hero */
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px var(--shadow-medium);
+            position: relative;
+            z-index: 10;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding-top: 20px;
+        }
+
+        .project-card {
+            background: var(--background-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease, transform 0.6s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px var(--shadow-medium);
+        }
+
+        .project-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7em;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .project-card p {
+            font-size: 1em;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .project-card ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 15px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .project-card ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 0.95em;
+        }
+
+        .project-card ul li::before {
+            content: '✓'; /* Checkmark for details */
+            color: var(--accent-color);
+            font-weight: 600;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .project-card .project-tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .project-card.featured {
+            border: 2px solid var(--accent-color);
+            background: linear-gradient(135deg, var(--background-dark) 0%, #f0fdf2 100%);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.2);
+        }
+
+        .project-card.featured h3 {
+            color: var(--accent-color);
+        }
+        
+        @keyframes fadeInHeader {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatEffect {
+            0% { transform: translate(0, 0) rotate(45deg); }
+            50% { transform: translate(15px, 15px) rotate(48deg); }
+            100% { transform: translate(0, 0) rotate(45deg); }
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: var(--text-dark);
+            color: var(--background-light);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer .footer-content {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer .contact-info {
+            text-align: left;
+        }
+
+        .footer .contact-info h4 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .footer .contact-info p {
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+
+        .footer .contact-info a {
+            color: var(--background-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer .contact-info a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer .copyright {
+            border-top: 1px solid var(--secondary-color);
+            padding-top: 20px;
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 768px) {
+            .header-hero {
+                padding: 60px 15px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            .header-hero h1 {
+                font-size: 2.5em;
+            }
+            .header-hero p {
+                font-size: 1em;
+            }
+            .container {
+                margin: -30px 15px 30px 15px;
+                padding: 20px;
+            }
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer .footer-content {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer .contact-info {
+                text-align: center;
+            }
+        }
+    </style> 
+ </head> 
+ <body> 
+  <div class="header-hero"> 
+   <h1>Our Landmark Projects</h1> 
+   <p>At Steddy Trading Company Limited, every project is a testament to our precision, innovation, and unwavering commitment to excellence. Explore the landscapes we've shaped and the foundations we've built across Kenya.</p> 
+  </div> 
+  <div class="container"> 
+   <div class="project-grid"> 
+    <div class="project-card"> <span class="project-tag">Featured</span> 
+     <h3>Daykio Plantations</h3> 
+     <p>A significant land subdivision project, meticulously executed to redefine property boundaries and facilitate future development.</p> 
+     <ul> 
+      <li><strong>Project Type:</strong> Cadastral Survey, Land Subdivision</li> 
+      <li><strong>Details:</strong> Subdivision of LR No. 11287/10 - Bustani Farm.</li> 
+      <li><strong>Impact:</strong> Enabled systematic property development.</li> 
+     </ul> 
+    </div> 
+    <div class="project-card"> 
+     <h3>National Housing Corporation</h3> 
+     <p>Comprehensive sectional property surveys for large-scale residential complexes, ensuring clear ownership and efficient management for homeowners.</p> 
+     <ul> 
+      <li><strong>Project Type:</strong> Sectional Property Survey</li> 
+      <li><strong>Location:</strong> Nyayo Highrise Flats, Nairobi</li> 
+      <li><strong>Details:</strong> Survey of 1,456 units, completed in June 2009.</li> 
+     </ul> 
+    </div> 
+    <div class="project-card"> 
+     <h3>Rural Electrification Authority (REA)</h3> 
+     <p>Ongoing partnership to extend essential power infrastructure to communities, accurately mapping routes for power lines under CDF projects.</p> 
+     <ul> 
+      <li><strong>Project Type:</strong> Service Line Surveys</li> 
+      <li><strong>Details:</strong> Contracted for surveying power lines under CDF projects since 2008.</li> 
+      <li><strong>Impact:</strong> Facilitating rural development and access to energy.</li> 
+     </ul> 
+    </div> 
+    <div class="project-card"> 
+     <h3>Telleposta Pensioners Housing Scheme</h3> 
+     <p>Crucial sectional property surveys across multiple estates, converting large land parcels into individually owned units for pensioners.</p> 
+     <ul> 
+      <li><strong>Project Type:</strong> Sectional Property Survey</li> 
+      <li><strong>Estates Surveyed:</strong> 
+       <ul> 
+        <li>Ofafa Jericho Estate (Nairobi): 200 units</li> 
+        <li>Makande Estate (Mombasa): 100 units</li> 
+        <li>Tudor Estate (Mombasa): 80 units</li> 
+       </ul> </li> 
+     </ul> 
+    </div> 
+    <div class="project-card"> <span class="project-tag">Key Achievement</span> 
+     <h3>Thika Teachers Co-operative Society</h3> 
+     <p>A large-scale cadastral survey project, delivering the foundational legal documents for numerous land parcels for the cooperative members.</p> 
+     <ul> 
+      <li><strong>Project Type:</strong> Cadastral Survey</li> 
+      <li><strong>Output:</strong> Production of 130 accurate Deed plans.</li> 
+      <li><strong>Impact:</strong> Secured land ownership for cooperative members.</li> 
+     </ul> 
+    </div> 
+    <div class="project-card"> 
+     <h3>Strategic Title Surveys</h3> 
+     <p>Precision title survey services for critical land holdings, including major housing developments and pension fund properties.</p> 
+     <ul> 
+      <li><strong>Project Type:</strong> Title Surveys, Boundary Demarcation</li> 
+      <li><strong>Key Properties:</strong> Malaa Housing, KPLC Pension Land.</li> 
+      <li><strong>Outcome:</strong> Clear and legally sound land titles.</li> 
+     </ul> 
+    </div> 
+   </div> 
+  </div> 
+  <footer class="footer"> 
+   <div class="footer-content"> 
+    <div class="contact-info"> 
+     <h4>Contact Us</h4> 
+     <p>Head Office: Kangundo Road, Shujaa, Kobil Petrol Station, First Floor, Room 2</p> 
+     <p>Phone: <a href="tel:0722244971">0722244971</a>, <a href="tel:0762746934">0762746934</a>, <a href="tel:0721707171">0721707171</a></p> 
+     <p>Email: <a href="mailto:steddytradingcoltd@gmail.com">steddytradingcoltd@gmail.com</a></p> 
+     <p>P.O. Box: 73220-00200 Nairobi</p> 
+    </div> 
+   </div> 
+   <div class="copyright"> 
+    <p>© 2025 Steddy Trading Company Limited. All Rights Reserved.</p> 
+   </div> 
+  </footer> 
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const projectCards = document.querySelectorAll('.project-card');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.2 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            projectCards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script> 
+ </body>
+</html>
