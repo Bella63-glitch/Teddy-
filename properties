@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Listings - Steddy Trading Company Limited</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #0f2e4d;
+            --color-secondary: #ffbf00;
+            --color-text: #555555;
+            --color-dark-text: #222222;
+            --color-light-bg: #f5f7fa;
+            --color-white: #ffffff;
+            --color-border: #e0e6ed;
+            --green: #006400;
+            --dark-green: #004d00;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            color: var(--color-text);
+            background-color: var(--color-light-bg);
+            margin: 0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            color: var(--color-dark-text);
+            line-height: 1.2;
+            margin-top: 0;
+            font-weight: 700;
+        }
+        h1.logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            /* Green Gradient for the logo text */
+            background: linear-gradient(to right, #006400, #004d00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent; /* Fallback for browsers that don't support text-fill-color */
+        }
+        h2.section-title {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            text-align: center;
+            margin-bottom: 3.5rem;
+            position: relative;
+            color: var(--color-primary);
+        }
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 5px;
+            background-color: var(--color-secondary);
+            border-radius: 2px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .section {
+            padding: 6rem 0;
+            position: relative;
+            z-index: 1;
+        }
+        .bg-white {
+            background-color: var(--color-white);
+        }
+        .header {
+            /* Background remains solid white for contrast with the gradient text */
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .navbar .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .navbar .nav-links li {
+            margin-left: 2rem;
+        }
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: var(--color-dark-text);
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--color-secondary);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .navbar .nav-links a:hover, .navbar .nav-links a.active {
+            color: var(--color-primary);
+        }
+        .navbar .nav-links a:hover::after, .navbar .nav-links a.active::after {
+            width: 100%;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            color: var(--color-white);
+            background-color: var(--green);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn:hover {
+            color: var(--color-white);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            background-color: var(--dark-green);
+        }
+        .whatsapp-btn {
+            background-color: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .property-card {
+            padding: 0;
+            text-align: left;
+            overflow: hidden;
+            background-color: var(--color-white);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 10px 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        .property-card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .no-image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #e0e6ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+        .property-card .card-content {
+            padding: 2.5rem;
+        }
+        .property-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .property-card .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+        .property-card .location {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+            font-weight: 500;
+        }
+        .property-card .description {
+            font-size: 0.95rem;
+            color: var(--color-text);
+        }
+        #listings-page .loading-message, #listings-page .error-message, #listings-page .no-results {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--color-text);
+        }
+        .footer {
+            background-color: var(--color-dark-text);
+            color: #d2dce8;
+            text-align: center;
+            padding: 3rem 0;
+        }
+        .footer .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .footer .contact-item i {
+            font-size: 2rem;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+        }
+        .footer p {
+            margin: 0;
+        }
+        .footer a {
+            color: var(--color-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: var(--color-white);
+        }
+        /* Mobile Hamburger Menu */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-white);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                padding: 1rem;
+                align-items: center;
+                gap: 1rem;
+                z-index: 999;
+            }
+            .navbar .nav-links.active {
+                display: flex;
+            }
+            .navbar .nav-links li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .navbar .nav-links a {
+                padding: 0.8rem 0;
+                display: block;
+                font-size: 1.1rem;
+            }
+            .navbar .nav-links a::after {
+                display: none;
+            }
+            .hamburger {
+                display: block;
+                font-size: 1.8rem;
+                cursor: pointer;
+                color: var(--color-primary);
+            }
+        }
+        /* New Styles for Filter */
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 300px;
+        }
+        .filter-group label {
+            font-weight: 600;
+            color: var(--color-dark-text);
+            margin-bottom: 0.5rem;
+        }
+        .filter-group input, .filter-group select {
+            padding: 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--color-text);
+            transition: border-color 0.3s ease;
+        }
+        .filter-group input:focus, .filter-group select:focus {
+            outline: none;
+            border-color: var(--green);
+        }
+        @media (min-width: 768px) {
+            .filter-container {
+                justify-content: space-between;
+            }
+            .filter-group {
+                width: calc(33.33% - 1rem);
+            }
+        }
+        .filter-btn {
+            background-color: var(--green);
+            color: var(--color-white);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .filter-btn:hover {
+            background-color: var(--dark-green);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Steddy Trading Co. Ltd.</h1>
+            <nav class="navbar">
+                <div class="hamburger">☰</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="listings.html" class="active">Properties</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="index.html#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="listings-page" class="section bg-white">
+            <div class="container">
+                <h2 class="section-title">All Property Listings</h2>
+
+                <div class="filter-container" data-aos="fade-up" data-aos-delay="200">
+                    <div class="filter-group">
+                        <label for="search-input">Search by Keyword</label>
+                        <input type="text" id="search-input" placeholder="e.g., land, Nairobi">
+                    </div>
+                    <div class="filter-group">
+                        <label for="min-price">Min Price (KES)</label>
+                        <input type="number" id="min-price" placeholder="e.g., 1000000">
+                    </div>
+                    <div class="filter-group">
+                        <label for="max-price">Max Price (KES)</label>
+                        <input type="number" id="max-price" placeholder="e.g., 5000000">
+                    </div>
+                </div>
+
+                <div id="loading-message" class="loading-message">Loading properties...</div>
+                <div id="error-message" class="error-message" style="display: none;">Failed to load properties. Please try again later.</div>
+                <div id="no-results" class="no-results" style="display: none;">No properties match your search criteria.</div>
+
+                <div id="properties-grid" class="grid-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <p>0722244971</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <p>steddytradingcoltd@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>Kangundo Road, Shujaa, Kobil Petrol Station, First Floor, Room 2</p>
+                </div>
+            </div>
+            <p>© 2025 Steddy Trading Company Limited. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+        const APP_ID = "0A7AD52F-FCFA-4EA6-B8BE-3866F42ECD0A";
+        const REST_API_KEY = "513E911B-04C0-4789-B660-627949989BE9";
+        const DATA_ENDPOINT = `https://api.backendless.com/${APP_ID}/${REST_API_KEY}/data/Properties`;
+        const axiosJsonConfig = { headers: { "Content-Type": "application/json" } };
+        let allProperties = [];
+        const propertiesGrid = document.getElementById("properties-grid");
+        const loadingMessage = document.getElementById("loading-message");
+        const errorMessage = document.getElementById("error-message");
+        const noResultsMessage = document.getElementById("no-results");
+        const searchInput = document.getElementById("search-input");
+        const minPriceInput = document.getElementById("min-price");
+        const maxPriceInput = document.getElementById("max-price");
+        function formatKES(value) {
+            if (value === undefined || value === null || isNaN(Number(value))) return "-";
+            try {
+                return "KES " + new Intl.NumberFormat().format(Number(value));
+            } catch {
+                return "KES " + value;
+            }
+        }
+        function escapeHtml(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+        function renderProperties(propertiesToRender) {
+            propertiesGrid.innerHTML = "";
+            if (propertiesToRender.length === 0) {
+                noResultsMessage.style.display = "block";
+            } else {
+                noResultsMessage.style.display = "none";
+                propertiesToRender.forEach((p, index) => {
+                    const mainImage = Array.isArray(p.imageurls) && p.imageurls.length ? p.imageurls[0] : null;
+                    const card = document.createElement("div");
+                    card.className = "card property-card";
+                    card.setAttribute("data-aos", "fade-up");
+                    card.setAttribute("data-aos-delay", 100 * (index + 1));
+                    card.innerHTML = `
+                        ${mainImage ? `<img src="${mainImage}" alt="${escapeHtml(p.title)}" class="property-card-image">` : `<div class="no-image-placeholder">No image available</div>`}
+                        <div class="card-content">
+                            <h3>${escapeHtml(p.title || "-")}</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(p.location || "-")}</p>
+                            <p class="price">${formatKES(p.price)}</p>
+                            <p class="description">${escapeHtml(p.description || "No description provided.")}</p>
+                        </div>
+                    `;
+                    propertiesGrid.appendChild(card);
+                });
+            }
+        }
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const minPrice = parseFloat(minPriceInput.value);
+            const maxPrice = parseFloat(maxPriceInput.value);
+            let filteredProperties = allProperties.filter(p => {
+                const titleMatch = p.title && p.title.toLowerCase().includes(searchTerm);
+                const locationMatch = p.location && p.location.toLowerCase().includes(searchTerm);
+                const priceMatch = 
+                    (isNaN(minPrice) || (p.price && p.price >= minPrice)) &&
+                    (isNaN(maxPrice) || (p.price && p.price <= maxPrice));
+                return (titleMatch || locationMatch) && priceMatch;
+            });
+            renderProperties(filteredProperties);
+        }
+        async function fetchAllProperties() {
+            loadingMessage.style.display = "block";
+            errorMessage.style.display = "none";
+            noResultsMessage.style.display = "none";
+            try {
+                const res = await axios.get(DATA_ENDPOINT, axiosJsonConfig);
+                allProperties = Array.isArray(res.data) ? res.data : [];
+                renderProperties(allProperties);
+            } catch (err) {
+                console.error("Error fetching properties:", err?.response?.data || err.message || err);
+                errorMessage.style.display = "block";
+                loadingMessage.style.display = "none";
+            } finally {
+                loadingMessage.style.display = "none";
+            }
+        }
+        document.addEventListener("DOMContentLoaded", fetchAllProperties);
+        searchInput.addEventListener("input", applyFilters);
+        minPriceInput.addEventListener("input", applyFilters);
+        maxPriceInput.addEventListener("input", applyFilters);
+    </script>
+</body>
+</html>
+    
