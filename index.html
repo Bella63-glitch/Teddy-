@@ -303,6 +303,11 @@
             color: var(--color-secondary);
             margin-bottom: 0.5rem;
         }
+        
+        .property-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
 
         .property-card {
             padding: 0;
@@ -893,10 +898,14 @@
                 noResultsMessage.style.display = "none";
                 properties.forEach((p, index) => {
                     const mainImage = Array.isArray(p.imageurls) && p.imageurls.length ? p.imageurls[0] : null;
+                    const cardLink = document.createElement("a");
+                    cardLink.href = `detailed-property.html?id=${p.objectId}`;
+                    cardLink.className = "property-card-link";
+                    cardLink.setAttribute("data-aos", "fade-up");
+                    cardLink.setAttribute("data-aos-delay", 100 * (index + 1));
+                    
                     const card = document.createElement("div");
                     card.className = "card property-card";
-                    card.setAttribute("data-aos", "fade-up");
-                    card.setAttribute("data-aos-delay", 100 * (index + 1));
                     card.innerHTML = `
                         ${mainImage ? `<img src="${mainImage}" alt="${p.title}" class="property-card-image">` : `<div class="no-image-placeholder">No image available</div>`}
                         <div class="card-content">
@@ -906,7 +915,8 @@
                             <p class="description">${escapeHtml(p.description || "No description provided.")}</p>
                         </div>
                     `;
-                    propertiesGrid.appendChild(card);
+                    cardLink.appendChild(card);
+                    propertiesGrid.appendChild(cardLink);
                 });
             }
         }
@@ -938,7 +948,5 @@
         document.addEventListener("DOMContentLoaded", fetchFeaturedProperties);
     </script>
  </body>
-</html>
-
-
-
+       </html>
+                                                               
