@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Steddy Trading Co. Ltd - Property Details</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steddy Trading Co. Ltd - Property Details</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
         :root {
             --green: #006400;
             --black: #000000;
@@ -156,8 +156,8 @@
             margin-bottom: 15px;
         }
         
-        .contact-section form button {
-            width: 100%;
+        .btn {
+            display: inline-block;
             padding: 12px;
             background: var(--green);
             color: white;
@@ -165,6 +165,7 @@
             border-radius: 4px;
             font-size: 1rem;
             cursor: pointer;
+            text-decoration: none;
         }
 
         .back-button {
@@ -175,50 +176,52 @@
             font-weight: bold;
         }
     </style>
-</head>
-<body>
-    <header>
-        <h1>Steddy Trading Co. Ltd</h1>
-        <div class="header-sub">Property Details</div>
-    </header>
-
-    <div class="container">
-        <a href="listings.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Listings</a>
-        
-        <div id="loading-message">Loading property details...</div>
-        <div id="not-found-message" style="display: none;">Property not found.</div>
-        <div id="error-message" style="display: none;">Failed to load property details. Please check the URL or try again later.</div>
-        
-        <div id="propertyDetailsContainer" style="display: none;">
-            <div class="property-container">
-                <div class="main-image-container">
-                    <img id="mainImage" src="" alt="Main property image">
-                </div>
-                <div class="thumbnail-container" id="thumbnailContainer"></div>
-
-                <div class="details-section">
-                    <h2 id="propertyTitle"></h2>
-                    <p><i class="fas fa-map-marker-alt"></i> <span id="propertyLocation"></span></p>
-                    <div class="price" id="propertyPrice"></div>
-                    
-                    <h3>Description</h3>
-                    <p id="propertyDescription"></p>
-                </div>
-                
-                <div class="contact-section">
-                    <h3>Inquire About This Property</h3>
-                    <form id="contactForm">
-                        <input type="text" id="contactName" placeholder="Your Name" required>
-                        <input type="email" id="contactEmail" placeholder="Your Email" required>
-                        <textarea id="contactMessage" rows="4" placeholder="Your message..." required></textarea>
-                        <button type="submit">Send Inquiry</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+ </head>
+ <body>
+  <header>
+   <h1>Steddy Trading Co. Ltd</h1>
+   <div class="header-sub">Property Details</div>
+  </header>
+  <div class="container">
+   <a href="listings.html" class="back-button"><i class="fas fa-arrow-left"></i> Back to Listings</a>
+   <div id="loading-message">
+    Loading property details...
+   </div>
+   <div id="not-found-message" style="display: none;">
+    Property not found.
+   </div>
+   <div id="error-message" style="display: none;">
+    Failed to load property details. Please check the URL or try again later.
+   </div>
+   <div id="propertyDetailsContainer" style="display: none;">
+    <div class="property-container">
+     <div class="main-image-container">
+      <img id="mainImage" src="" alt="Main property image">
+     </div>
+     <div class="thumbnail-container" id="thumbnailContainer"></div>
+     <div class="details-section">
+      <h2 id="propertyTitle"></h2>
+      <p>
+       <i class="fas fa-map-marker-alt"></i>
+       <span id="propertyLocation"></span>
+      </p>
+      <div class="price" id="propertyPrice"></div>
+      <h3>Description</h3>
+      <p id="propertyDescription"></p>
+     </div>
+     <div class="contact-section">
+      <h3>Inquire About This Property</h3>
+      <p>
+       Click the button below to send your inquiry directly to us via email.
+      </p>
+      <a href="mailto:steddytradingcoltd@gmail.com?subject=Inquiry%20About%20a%20Property%20from%20Website&body=I%20am%20interested%20in%20the%20property%20I%20saw%20on%20your%20website.%20%0A%0AProperty%20Title%3A%20%0A%0AProperty%20URL%3A%20(Please%20paste%20the%20URL%20of%20this%20page)%0A%0A%0AMy%20name%20is%3A%20%0A%0AMy%20email%20is%3A%20%0A%0AMy%20inquiry%3A%20" class="btn" style="width: 100%; text-align: center;">
+       <i class="fas fa-envelope"></i> Send Inquiry via Email
+      </a>
+     </div>
     </div>
-
-    <script>
+   </div>
+  </div>
+  <script>
         // === Backendless credentials ===
         const APP_ID = "0A7AD52F-FCFA-4EA6-B8BE-3866F42ECD0A";
         const REST_API_KEY = "513E911B-04C0-4789-B660-627949989BE9";
@@ -237,7 +240,6 @@
         const propertyLocation = document.getElementById("propertyLocation");
         const propertyPrice = document.getElementById("propertyPrice");
         const propertyDescription = document.getElementById("propertyDescription");
-        const contactForm = document.getElementById("contactForm");
 
         // Utility: human currency formatting (KES)
         function formatKES(value) {
@@ -311,13 +313,6 @@
             }
         }
 
-        // Simple form submission (no backend)
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert("Thank you for your inquiry! We will get back to you shortly.");
-            contactForm.reset();
-        });
-
         // Get property ID from URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         const propertyId = urlParams.get('id');
@@ -330,6 +325,21 @@
             errorMessage.textContent = "No property ID provided in the URL.";
         }
     </script>
-</body>
+ </body>
 </html>
-      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
