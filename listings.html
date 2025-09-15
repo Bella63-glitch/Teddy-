@@ -165,6 +165,10 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
+        .property-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
         .property-card {
             padding: 0;
             text-align: left;
@@ -476,10 +480,14 @@
                 noResultsMessage.style.display = "none";
                 propertiesToRender.forEach((p, index) => {
                     const mainImage = Array.isArray(p.imageurls) && p.imageurls.length ? p.imageurls[0] : null;
+                    const cardLink = document.createElement("a");
+                    cardLink.href = `detailed-property.html?id=${p.objectId}`;
+                    cardLink.className = "property-card-link";
+                    cardLink.setAttribute("data-aos", "fade-up");
+                    cardLink.setAttribute("data-aos-delay", 100 * (index + 1));
+
                     const card = document.createElement("div");
                     card.className = "card property-card";
-                    card.setAttribute("data-aos", "fade-up");
-                    card.setAttribute("data-aos-delay", 100 * (index + 1));
                     card.innerHTML = `
                         ${mainImage ? `<img src="${mainImage}" alt="${escapeHtml(p.title)}" class="property-card-image">` : `<div class="no-image-placeholder">No image available</div>`}
                         <div class="card-content">
@@ -489,7 +497,8 @@
                             <p class="description">${escapeHtml(p.description || "No description provided.")}</p>
                         </div>
                     `;
-                    propertiesGrid.appendChild(card);
+                    cardLink.appendChild(card);
+                    propertiesGrid.appendChild(cardLink);
                 });
             }
         }
@@ -530,4 +539,12 @@
     </script>
 </body>
 </html>
-    
+
+
+
+
+
+
+
+
+
