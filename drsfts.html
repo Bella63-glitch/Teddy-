@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Steddy Trading Company Limited - Professional Land &amp; Property Solutions</title> 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@700&amp;display=swap" rel="stylesheet"> 
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"> 
+  <style>
+        :root {
+            --color-primary: #004d7a;
+            --color-secondary: #e6b800;
+            --color-text: #4b5563;
+            --color-dark-text: #1f2937;
+            --color-light-bg: #f9fafb;
+            --color-white: #ffffff;
+            --color-border: #e5e7eb;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-light-bg);
+            margin: 0;
+            scroll-behavior: smooth;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.05); 
+        }
+        
+        html {
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            color: var(--color-dark-text);
+            line-height: 1.2;
+            margin-top: 0;
+            font-weight: 700;
+        }
+
+        h1.logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--color-primary);
+        }
+
+        h2.section-title {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            color: var(--color-primary);
+        }
+
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--color-secondary);
+            border-radius: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bg-light {
+            background-color: var(--color-light-bg);
+        }
+
+        .bg-white {
+            background-color: var(--color-white);
+        }
+
+        .header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .navbar .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: var(--color-dark-text);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: var(--color-secondary);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover, .navbar .nav-links a.active {
+            color: var(--color-primary);
+        }
+
+        .navbar .nav-links a:hover::after, .navbar .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://i.postimg.cc/HkL1xwjM/39436002b42b9bb355fa5e45f7256a18.jpg') no-repeat center center/cover;
+            color: var(--color-white);
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        /* Adjusted Hero Heading for better mobile compatibility */
+        .hero-content h2 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            margin-bottom: 1rem;
+            color: var(--color-white);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            border-right: .15em solid var(--color-secondary); /* Typing cursor */
+            white-space: pre-wrap; /* Allows text to wrap */
+            animation: blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--color-secondary); }
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            margin-bottom: 2.5rem;
+            color: #d1d5db;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            color: var(--color-white);
+            background-color: var(--color-secondary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
+            background-color: #d4a700;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #128C7E;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1.5fr 1fr;
+            }
+        }
+
+        .services-grid-new {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .services-grid-new {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .service-group {
+            background-color: var(--color-white);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            padding: 2.5rem;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .service-group:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .service-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-item i {
+            font-size: 2.5rem;
+            color: var(--color-secondary);
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .service-item .text-content h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        .property-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .property-card {
+            padding: 0;
+            text-align: left;
+            overflow: hidden;
+            background-color: var(--color-white);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .property-card-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .no-image-placeholder {
+            width: 100%;
+            height: 250px;
+            background: #e0e6ed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+            text-align: center;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .property-card .card-content {
+            padding: 2rem;
+        }
+
+        .property-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary);
+        }
+
+        .property-card .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .property-card .location {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        .property-card .description {
+            font-size: 0.95rem;
+            color: var(--color-text);
+        }
+
+        .team-grid-new {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .team-member-new {
+            background-color: var(--color-white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .team-member-new:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-photo-new {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--color-white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+        }
+
+        .team-member-new:hover .team-photo-new {
+            border-color: var(--color-secondary);
+        }
+        
+        .team-initials, .team-icon-placeholder {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), #003355);
+            color: var(--color-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 4px solid var(--color-white);
+            transition: border-color 0.3s ease;
+        }
+        
+        .team-member-new:hover .team-initials, .team-member-new:hover .team-icon-placeholder {
+            border-color: var(--color-secondary);
+        }
+        
+        .team-icon-placeholder i {
+            font-size: 5rem;
+            color: var(--color-white);
+        }
+
+
+        .team-member-new h3 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .team-member-new .role {
+            display: block;
+            color: var(--color-primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .team-member-new .social-icons {
+            margin-top: 1rem;
+        }
+
+        .team-member-new .social-icons a {
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .team-member-new .social-icons a:hover {
+            color: var(--color-secondary);
+        }
+
+        .section-tilted-bg {
+            position: relative;
+            background-color: var(--color-light-bg);
+            padding: 6rem 0;
+        }
+
+        .section-tilted-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-white);
+            transform: skewY(-2deg);
+            transform-origin: top left;
+            z-index: -1;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonials-section {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            overflow: hidden;
+        }
+
+        .testimonials-section .section-title {
+            color: var(--color-white);
+        }
+
+        /* Testimonial slider styles */
+        .testimonials-container {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .testimonials-carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--color-white);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            flex: 0 0 100%;
+            box-sizing: border-box;
+            position: relative;
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        .testimonial-card i {
+            font-size: 2.5rem;
+            color: var(--color-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-top: 1rem;
+            color: var(--color-secondary);
+        }
+
+        /* Navigation dots */
+        .carousel-dots {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: var(--color-white);
+        }
+
+
+        .footer {
+            background-color: var(--color-dark-text);
+            color: #d2dce8;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .footer .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer .contact-item i {
+            font-size: 2rem;
+            color: var(--color-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .footer a {
+            color: var(--color-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: var(--color-white);
+        }
+
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--color-white);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                padding: 1rem;
+                align-items: center;
+                gap: 1rem;
+                z-index: 999;
+            }
+
+            .navbar .nav-links.active {
+                display: flex;
+            }
+
+            .navbar .nav-links li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .navbar .nav-links a {
+                padding: 0.8rem 0;
+                display: block;
+                font-size: 1.1rem;
+            }
+
+            .navbar .nav-links a::after {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+                font-size: 1.8rem;
+                cursor: pointer;
+                color: var(--color-primary);
+            }
+
+            .hero-section {
+                height: 70vh;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .card {
+                padding: 1.8rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image-container {
+                order: -1;
+            }
+
+            .section-tilted-bg::before {
+                transform: skewY(-4deg);
+            }
+        }
+
+        .about-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .about-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-icon {
+            font-size: 5rem;
+            color: var(--color-secondary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .download-links .btn {
+            padding: 0.8rem 2rem;
+            font-size: 0.9rem;
+        }
+
+        #featured-properties .loading-message, #featured-properties .error-message, #featured-properties .no-results {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--color-text);
+        }
+    </style> 
+ </head>
+  <body> 
+  <header class="header"> 
+   <div class="container"> 
+    <h1 class="logo">Steddy Trading Co. Ltd.</h1> 
+    <nav class="navbar"> 
+     <div class="hamburger">
+       ☰ 
+     </div> 
+     <ul class="nav-links"> 
+      <li><a href="#about">About Us</a></li> 
+      <li><a href="#featured-properties">Properties</a></li> 
+      <li><a href="#services">Services</a></li> 
+      <li><a href="projects.html">Projects</a></li> 
+      <li><a href="#testimonials">Testimonials</a></li> 
+      <li><a href="#team">Our Team</a></li> 
+      <li><a href="#contact">Contact Us</a></li> 
+     </ul> 
+    </nav> 
+   </div> 
+  </header> 
+  <main> 
+   <section class="hero-section"> 
+    <div class="container hero-content"> 
+     <h2 id="typed-text" data-aos="fade-up" data-aos-duration="1000"></h2> 
+     <p data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Registered Estate Agents &amp; Surveying Professionals in East Africa</p> 
+    </div> 
+   </section> 
+   <section id="about" class="section bg-white"> 
+    <div class="container"> 
+     <h2 class="section-title" data-aos="fade-up">About Us</h2> 
+     <div class="about-grid" data-aos="fade-up" data-aos-delay="200"> 
+      <div> 
+       <p class="section-intro">Steddy Trading Company Limited is a registered surveying and estate agency firm offering professional land and property solutions in East Africa. With over 30 years of experience, we provide a wide range of surveying and estate agency services, committed to accuracy, efficiency, and excellence.</p> 
+      </div> 
+      <div class="about-image-container" data-aos="fade-left" data-aos-delay="400"> 
+       <img src="https://i.postimg.cc/BZKggNYR/IMG-20250924-WA0015.jpg" alt="Steddy Trading Company Limited team discussing plans" class="about-image"> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+   <section id="featured-properties" class="section bg-white"> 
+    <div class="container"> 
+     <h2 class="section-title" data-aos="fade-up">Featured Properties</h2> 
+     <div id="loading-message" class="loading-message">
+       Loading featured properties... 
+     </div> 
+     <div id="error-message" class="error-message" style="display: none;">
+       Failed to load properties. 
+     </div> 
+     <div id="no-results" class="no-results" style="display: none;">
+       No featured properties are available at this time. 
+     </div> 
+     <div id="properties-grid" class="grid-container"></div> 
+     <div style="text-align: center; margin-top: 3rem;"> <a href="listings.html" class="btn" data-aos="fade-up" data-aos-delay="400">View All Properties</a> 
+     </div> 
+    </div> 
+   </section> 
+   <section id="services" class="section section-tilted-bg bg-light"> 
+    <div class="container"> 
+     <h2 class="section-title" data-aos="fade-up">Our Services</h2> 
+     <div class="services-grid-new"> 
+      <div class="service-group" data-aos="fade-right" data-aos-delay="100"> 
+       <ul class="service-list"> 
+        <li class="service-item"> <i class="fas fa-map-marked-alt"></i> 
+         <div class="text-content"> 
+          <h4>Cadastral Surveys</h4> 
+          <p>For urban and rural titles, ensuring accurate and legally compliant land boundaries.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-mountain"></i> 
+         <div class="text-content"> 
+          <h4>Topographical Surveys</h4> 
+          <p>Detailed mapping of land contours, elevations, and natural features for development planning.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-road"></i> 
+         <div class="text-content"> 
+          <h4>Engineering Surveys</h4> 
+          <p>Precise surveys for major projects including dams, roads, and earth dams.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-drafting-compass"></i> 
+         <div class="text-content"> 
+          <h4>Service Line Surveys</h4> 
+          <p>Accurate mapping for power lines, sewer systems, and other utility suppliers.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-seedling"></i> 
+         <div class="text-content"> 
+          <h4>Agricultural Surveys</h4> 
+          <p>Surveys for potential agriculture, including soil sampling and fertilizer prescriptions.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-ruler-combined"></i> 
+         <div class="text-content"> 
+          <h4>Demarcation &amp; Setting Out</h4> 
+          <p>For access roads and property boundaries, ensuring clear and precise demarcation.</p> 
+         </div> </li> 
+       </ul> 
+      </div> 
+      <div class="service-group" data-aos="fade-left" data-aos-delay="200"> 
+       <ul class="service-list"> 
+        <li class="service-item"> <i class="fas fa-home"></i> 
+         <div class="text-content"> 
+          <h4>Property Sales &amp; Letting</h4> 
+          <p>Assisting clients in buying, selling, and renting residential and commercial properties.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-tasks"></i> 
+         <div class="text-content"> 
+          <h4>Property Management</h4> 
+          <p>Comprehensive management of properties, including tenant screening and maintenance.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-balance-scale"></i> 
+         <div class="text-content"> 
+          <h4>Valuation Services</h4> 
+          <p>Professional valuation of properties for various purposes, including mortgages and sales.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-chart-line"></i> 
+         <div class="text-content"> 
+          <h4>Feasibility Studies</h4> 
+          <p>Providing expert analysis to determine the viability of property and land projects.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-hard-hat"></i> 
+         <div class="text-content"> 
+          <h4>Project Supervision</h4> 
+          <p>Overseeing construction and development projects to ensure they meet standards.</p> 
+         </div> </li> 
+        <li class="service-item"> <i class="fas fa-building"></i> 
+         <div class="text-content"> 
+          <h4>Land Use Planning</h4> 
+          <p>Consultancy on optimal land use strategies for various purposes.</p> 
+         </div> </li> 
+       </ul> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+   <section id="projects" class="section bg-white" style="text-align: center;"> 
+    <div class="container"> 
+     <h2 class="section-title" data-aos="fade-up">Our Projects</h2> 
+     <p data-aos="fade-up" data-aos-delay="200">View our extensive portfolio of completed projects to see the quality of our work.</p> <a href="projects.html" class="btn" data-aos="fade-up" data-aos-delay="400" style="margin-top: 2rem;">View All Projects</a> 
+    </div> 
+   </section> 
+   <section id="testimonials" class="section testimonials-section"> 
+    <div class="container"> 
+     <h2 class="section-title" data-aos="fade-up">What Our Clients Say</h2> 
+     <div class="testimonials-container"> 
+      <div class="testimonials-carousel" id="testimonials-carousel"> 
+       <div class="testimonial-card"> <i class="fas fa-quote-left"></i> 
+        <p>"Steddy Trading provided exceptional service. The team was professional, efficient, and delivered our survey with incredible accuracy. Highly recommend!"</p> 
+        <p class="testimonial-author">- John Mwangi, Developer</p> 
+       </div> 
+       <div class="testimonial-card"> <i class="fas fa-quote-left"></i> 
+        <p>"We were impressed by the speed and precision of their work. They are a reliable partner and helped us navigate complex land regulations."</p> 
+        <p class="testimonial-author">- Jane Wanjiku, Homeowner</p> 
+       </div> 
+       <div class="testimonial-card"> <i class="fas fa-quote-left"></i> 
+        <p>"The team at Steddy is fantastic. Their knowledge of surveying and land management is unmatched. They are our go-to for all new projects."</p> 
+        <p class="testimonial-author">- Michael Omondi, Project Manager</p> 
+       </div> 
+       <div class="testimonial-card"> <i class="fas fa-quote-left"></i> 
+        <p>"For years, Steddy has expertly managed our commercial properties. Their property management services are unparalleled and completely stress-free."</p> 
+        <p class="testimonial-author">- Sarah Adhiambo, Property Investor</p> 
+       </div> 
+       <div class="testimonial-card"> <i class="fas fa-quote-left"></i> 
+        <p>"The property valuation we received was detailed and fair. Steddy's team is honest and their expertise is evident in every step of the process."</p> 
+        <p class="testimonial-author">- David Mutua, Business Owner</p> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="carousel-dots" id="carousel-dots"></div> 
+    </div> 
+   </section> 
+   <section id="team" class="section bg-light"> 
+    <div class="container"> 
+     <h2 class="section-title" data-aos="fade-up">Our Leadership</h2> 
+     <div class="team-grid-new"> 
+      <div class="team-member-new" data-aos="fade-up" data-aos-delay="100"> 
+       <img src="https://i.postimg.cc/PrXhdRS6/IMG-20250908-WA0052.jpg" alt="Kamau Stephen Njihia" class="team-photo-new"> 
+       <h3>Kamau Stephen Njihia</h3> <span class="role">Chief Surveyor &amp; Business Development Director</span> 
+       <p>A registered Estate Agent and member of the Institution of Surveyors of Kenya (ISK). Experienced in surveying for KPLC and the Rural Electrification Authority.</p> 
+       <div class="social-icons"> <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a> 
+       </div> 
+      </div> 
+      <div class="team-member-new" data-aos="fade-up" data-aos-delay="300"> 
+       <div class="team-icon-placeholder"> <i class="fas fa-user-cog"></i> 
+       </div> 
+       <h3>Peter Anthony Okeyo Oraro</h3> <span class="role">Chief Executive Officer</span> 
+       <p>A Certified Land Surveyor (CLS) with over 30 years of experience. A full member of the Institution of Surveyors of Kenya (MISK).</p> 
+       <div class="social-icons"> <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a> 
+       </div> 
+      </div> 
+      <div class="team-member-new" data-aos="fade-up" data-aos-delay="500"> 
+       <div class="team-icon-placeholder"> <i class="fas fa-user-cog"></i> 
+       </div> 
+       <h3>Doris Waithera Njihia</h3> <span class="role">Secretary</span> 
+       <p>Doris oversees administrative operations, ensuring smooth day-to-day business functions and client communications.</p> 
+       <div class="social-icons"> <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+      <section id="contact" class="section bg-white"> 
+    <div class="container"> 
+     <h2 class="section-title" data-aos="fade-up">Contact Us</h2> 
+     <div style="text-align: center; max-width: 600px; margin: 0 auto;" data-aos="fade-up" data-aos-delay="200"> 
+      <p>Reach out to us directly on WhatsApp to discuss your project and get started.</p> <a href="https://wa.me/254719254239" class="btn whatsapp-btn" style="margin-top: 1rem;" target="_blank"> <i class="fab fa-whatsapp"></i> Chat on WhatsApp </a> 
+      <div class="download-links"> <a href="https://i.postimg.cc/KjCYkNv7/IMG-20250914-WA0013.jpg" download class="btn"> <i class="fas fa-download"></i> EARB Certificate </a> 
+      </div> 
+     </div> 
+    </div> 
+   </section> 
+  </main> 
+  <footer class="footer"> 
+   <div class="container"> 
+    <div class="contact-info"> 
+     <div class="contact-item" data-aos="fade-up"> <i class="fas fa-phone-alt"></i> 
+      <p>0719254239</p> 
+     </div> 
+     <div class="contact-item" data-aos="fade-up" data-aos-delay="100"> <i class="fas fa-envelope"></i> 
+      <p>steddytradingcoltd@gmail.com</p> 
+     </div> 
+     <div class="contact-item" data-aos="fade-up" data-aos-delay="200"> <i class="fas fa-map-marker-alt"></i> 
+      <p>Kangundo Road, Shujaa, Kobil Petrol Station, First Floor, Room 2</p> 
+     </div> 
+    </div> 
+    <p>© 2025 Steddy Trading Company Limited. All rights reserved.</p> 
+   </div> 
+  </footer> 
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
+  <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+
+        // Testimonial slider logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousel = document.getElementById('testimonials-carousel');
+            const dotsContainer = document.getElementById('carousel-dots');
+            const testimonials = document.querySelectorAll('.testimonial-card');
+            let currentIndex = 0;
+            let slideInterval;
+
+            if (testimonials.length > 0) {
+                testimonials.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot');
+                    dot.addEventListener('click', () => {
+                        goToSlide(index);
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+
+                const dots = document.querySelectorAll('.dot');
+
+                function updateCarousel() {
+                    const cardWidth = testimonials[0].offsetWidth + 32;
+                    carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+                    dots.forEach(dot => dot.classList.remove('active'));
+                    dots[currentIndex].classList.add('active');
+                }
+
+                function nextSlide() {
+                    currentIndex = (currentIndex + 1) % testimonials.length;
+                    updateCarousel();
+                }
+
+                function goToSlide(index) {
+                    currentIndex = index;
+                    updateCarousel();
+                    resetSlideInterval();
+                }
+
+                function resetSlideInterval() {
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextSlide, 5000);
+                }
+
+                updateCarousel();
+                resetSlideInterval();
+
+                carousel.addEventListener('mouseenter', () => clearInterval(slideInterval));
+                carousel.addEventListener('mouseleave', resetSlideInterval);
+
+                carousel.addEventListener('touchstart', () => clearInterval(slideInterval), { passive: true });
+                carousel.addEventListener('touchend', resetSlideInterval, { passive: true });
+            }
+        });
+
+        // Typing effect for hero text
+        document.addEventListener("DOMContentLoaded", function() {
+            const typedTextElement = document.getElementById("typed-text");
+            const textToType = "Expert Land & Property Solutions";
+            let i = 0;
+            let speed = 50;
+
+            function typeWriter() {
+                if (i < textToType.length) {
+                    typedTextElement.textContent += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            typedTextElement.textContent = "";
+            typeWriter();
+        });
+
+        // === Logic to fetch featured properties ===
+        const APP_ID = "0A7AD52F-FCFA-4EA6-B8BE-3866F42ECD0A";
+        const REST_API_KEY = "513E911B-04C0-4789-B660-627949989BE9";
+        const DATA_ENDPOINT = `https://api.backendless.com/${APP_ID}/${REST_API_KEY}/data/Properties`;
+        const axiosJsonConfig = { headers: { "Content-Type": "application/json" } };
+
+        const propertiesGrid = document.getElementById("properties-grid");
+        const loadingMessage = document.getElementById("loading-message");
+        const errorMessage = document.getElementById("error-message");
+        const noResultsMessage = document.getElementById("no-results");
+
+        function formatKES(value) {
+            if (value === undefined || value === null || isNaN(Number(value))) return "-";
+            try {
+                return "KES " + new Intl.NumberFormat().format(Number(value));
+            } catch {
+                return "KES " + value;
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return "";
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function renderFeaturedProperties(properties) {
+            propertiesGrid.innerHTML = "";
+            if (properties.length === 0) {
+                noResultsMessage.style.display = "block";
+            } else {
+                noResultsMessage.style.display = "none";
+                properties.forEach((p, index) => {
+                    const mainImage = Array.isArray(p.imageurls) && p.imageurls.length ? p.imageurls[0] : null;
+                    const cardLink = document.createElement("a");
+                    cardLink.href = `detailed-property.html?id=${p.objectId}`;
+                    cardLink.className = "property-card-link";
+                    cardLink.setAttribute("data-aos", "fade-up");
+                    cardLink.setAttribute("data-aos-delay", 100 * (index + 1));
+                    
+                    const card = document.createElement("div");
+                    card.className = "card property-card";
+                    card.innerHTML = `
+                        ${mainImage ? `<img src="${mainImage}" alt="${p.title}" class="property-card-image">` : `<div class="no-image-placeholder">No image available</div>`}
+                        <div class="card-content">
+                            <h3>${escapeHtml(p.title || "-")}</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(p.location || "-")}</p>
+                            <p class="price">${formatKES(p.price)}</p>
+                            <p class="description">${escapeHtml(p.description || "No description provided.")}</p>
+                        </div>
+                    `;
+                    cardLink.appendChild(card);
+                    propertiesGrid.appendChild(cardLink);
+                });
+            }
+        }
+        
+        async function fetchFeaturedProperties() {
+            if (!loadingMessage || !errorMessage || !noResultsMessage || !propertiesGrid) return;
+            
+            loadingMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            noResultsMessage.style.display = 'none';
+            propertiesGrid.innerHTML = '';
+
+            try {
+                const response = await axios.get(`${DATA_ENDPOINT}?pageSize=3&sortBy=created%20desc`);
+                const properties = response.data;
+                
+                if (properties.length > 0) {
+                    renderFeaturedProperties(properties);
+                } else {
+                    noResultsMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Error fetching properties:", error);
+                errorMessage.style.display = 'block';
+            } finally {
+                loadingMessage.style.display = 'none';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchFeaturedProperties);
+</script> 
+ 
+      </body></html>
+      
+ 
